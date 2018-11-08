@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import <SDK/SDK.h>
 
 @interface ViewController ()
 
@@ -14,16 +15,32 @@
 
 @implementation ViewController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+    
+//    SDKData *data = [SDKData new];
+//    [data show];
+    
+    NSBundle *resourceBundle = [NSBundle bundleForClass:[SDKData class]]; // 获取类所在的bundle
+    NSString *bundlePath = [resourceBundle pathForResource:@"SDK" ofType:@"bundle"]; // 获取资源bundle路径
+    
+    // 方式1 直接拼路径
+//    NSString *imagePath = [bundlePath stringByAppendingPathComponent:@"user.jpg"];
+//    UIImage *image = [UIImage imageWithContentsOfFile:imagePath];
+    
+    // 方式2 通过获取bundle来操作
+//    NSBundle *bundle = [NSBundle bundleWithPath:bundlePath];
+//    NSString *imagePath = [bundle pathForResource:@"user.jpg" ofType:nil];
+//    UIImage *image = [UIImage imageWithContentsOfFile:imagePath];
+    
+    // 方式3 通过传入bundle来获取数据
+    NSBundle *bundle = [NSBundle bundleWithPath:bundlePath];
+    UIImage *image = [UIImage imageNamed:@"user.jpg" inBundle:bundle compatibleWithTraitCollection:nil];
+    
+    NSLog(@"%s  image = %@", __func__, image);
+    
+    return;
 }
-
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 
 @end
